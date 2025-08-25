@@ -1,0 +1,55 @@
+services:
+    php:
+        container_name: tasks-manager-api
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - tasks-manager-network
+        depends_on:
+            mysql:
+                condition: service_healthy
+        restart: unless-stopped
+        user: "1000:1000"
+
+    nginx:
+        build: ./docker/nginx
+        ports:
+            - "8000:80"
+        volumes:
+            - ./:/var/www/html
+        depends_on:
+            - php
+        networks:
+            - tasks-manager-network
+
+    mysql:
+        image: mysql:8.4
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - mysql-data:/var/lib/mysql
+        ports:
+            - "${DB_PORT}:3306"
+        networks:
+            - tasks-manager-network
+        healthcheck:
+            test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$MYSQL_USER -p$MYSQL_PASSWORD --silent"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
+volumes:
+    mysql-data:
+        driver: local
+
+networks:
+    tasks-manager-network:
+        driver: bridge
