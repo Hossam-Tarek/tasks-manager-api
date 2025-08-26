@@ -39,7 +39,7 @@ services:
         networks:
             - tasks-manager-network
         healthcheck:
-            test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$MYSQL_USER -p$MYSQL_PASSWORD --silent"]
+            test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$DB_USERNAME -p$DB_PASSWORD --silent"]
             interval: 5s
             timeout: 5s
             retries: 5

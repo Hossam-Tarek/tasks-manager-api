@@ -9,10 +9,6 @@ set -e
 
 cd /var/www/html
 
-# Set proper permissions for Laravel directories
-chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
 php artisan migrate --force
 
 # Replace this shell script with whatever command was passed to the container, and make it PID 1
