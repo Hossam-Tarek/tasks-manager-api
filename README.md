@@ -20,7 +20,7 @@ This repository contains a **Laravel API** for managing tasks.
 
 - Clone the repository:
 ```bash
-git@github.com:Hossam-Tarek/tasks-manager-api.git
+git clone git@github.com:Hossam-Tarek/tasks-manager-api.git
 cd tasks-manager-api
 ```
 - Copy .env.example to .env and configure environment variables if needed:
@@ -29,7 +29,7 @@ cp .env.example .env
 ```
 - Build and start Docker containers:
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 - Run migrations and seed the database:
 ```bash
