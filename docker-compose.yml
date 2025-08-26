@@ -12,7 +12,6 @@ services:
             mysql:
                 condition: service_healthy
         restart: unless-stopped
-        user: "1000:1000"
 
     nginx:
         build: ./docker/nginx
