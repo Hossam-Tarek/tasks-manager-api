@@ -29,15 +29,15 @@ cp .env.example .env
 ```
 - Build and start Docker containers:
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 - Run migrations and seed the database:
 ```bash
-docker compose exec php php artisan migrate --seed
+docker-compose exec php php artisan migrate --seed
 ```
 - Run PHPUnit tests:
 ```bash
-docker compose exec php php artisan test
+docker-compose exec php php artisan test
 ```
 - Access the API:
 ```bash
